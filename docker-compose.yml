@@ -12,6 +12,19 @@ services:
     networks:
       - app-tier
 
+  python_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql_db
+    links:
+      - mysql_db
+    networks:
+      - app-tier
+    entrypoint:
+      "python /app/app.py"
+
 networks:
   app-tier:
     driver: bridge
